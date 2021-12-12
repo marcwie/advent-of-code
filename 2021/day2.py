@@ -1,18 +1,17 @@
 import numpy as np
 
-def run():
+def solve_part1(data):
 
-    data = np.loadtxt('data/day2/input', dtype=str)
-    
     down = np.sum([int(value) for direction, value in data if direction == 'down'])
     forward = np.sum([int(value) for direction, value in data if direction == 'forward'])
     up = np.sum([int(value) for direction, value in data if direction == 'up'])
-    print('Part1 Solution:', (down - up) * forward )
     
-    depth = 0
-    position = 0
-    aim = 0
+    return (down - up) * forward
 
+
+def solve_part2(data):
+
+    depth, position, aim = 0, 0, 0
     for direction, value in data:
         value = int(value)
         if direction == 'forward':
@@ -22,9 +21,28 @@ def run():
             aim -= value
         elif direction == 'down':
             aim += value
-
-    print('Part2 Solution:', position * depth )
     
+    return position * depth
+
+
+def run():
+
+    data = np.loadtxt('data/day2/test', dtype=str)
+    solution = solve_part1(data)
+    assert solution == 150
+
+    data = np.loadtxt('data/day2/input', dtype=str)
+    solution = solve_part1(data)
+    print('Part1 solution:', solution) 
+
+    data = np.loadtxt('data/day2/test', dtype=str)
+    solution = solve_part2(data)
+    assert solution == 900
+
+    data = np.loadtxt('data/day2/input', dtype=str)
+    solution = solve_part2(data)
+    print('Part2 solution:', solution) 
+
 
 if __name__ == '__main__':
     run()
