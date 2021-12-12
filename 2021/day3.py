@@ -1,10 +1,8 @@
 import numpy as np
 
 
-def part1():
-    
-    data = np.loadtxt('data/day3/input', dtype=str)
-    
+def solve_part1(data):
+
     n_bits = len(data[0])
     n_numbers = len(data)
     bit_count = np.zeros(n_bits)
@@ -18,17 +16,14 @@ def part1():
 
     gamma_rate = int(gamma_rate, 2)
     epsilon_rate = int(epsilon_rate, 2)
-
-    print('Part1 Solution:', gamma_rate * epsilon_rate )
-
-
-def part2():
     
-    data = np.loadtxt('data/day3/input', dtype=str)
+    return gamma_rate * epsilon_rate
+
+
+def solve_part2(data):
 
     candidates = data
     position = 0
-    
     while len(candidates) > 1:
     
         entries = np.array([int(number[position]) for number in candidates])
@@ -46,7 +41,6 @@ def part2():
 
     candidates = data
     position = 0
-    
     while len(candidates) > 1:
     
         entries = np.array([int(number[position]) for number in candidates])
@@ -61,9 +55,31 @@ def part2():
         position += 1
         
     co2_scrubber_rating = int(candidates[0], 2)
-
-    print('Part2 Solution:', co2_scrubber_rating * oxygen_rating)
    
+    return co2_scrubber_rating * oxygen_rating
+
+
+def part1():
+    
+    data = np.loadtxt('data/day3/test', dtype=str)
+    solution = solve_part1(data)
+    assert solution == 198 
+    
+    data = np.loadtxt('data/day3/input', dtype=str)
+    solution = solve_part1(data)
+    print('Part1 solution:', solution)
+
+ 
+def part2():
+
+    data = np.loadtxt('data/day3/test', dtype=str)
+    solution = solve_part2(data)
+    assert solution == 230
+    
+    data = np.loadtxt('data/day3/input', dtype=str)
+    solution = solve_part2(data)
+    print('Part2 solution:', solution)
+
 
 if __name__ == '__main__':
     part1()
