@@ -56,7 +56,7 @@ def find_sync(data):
     return steps
 
 
-def part1():
+def run():
 
     data = load_data(filename='data/day11/test')
     solution = iterate(data, n_steps=10)
@@ -68,9 +68,6 @@ def part1():
     solution = iterate(data, n_steps=100)
     print('Part1 solution:', solution)
 
-
-def part2():
-
     data = load_data(filename='data/day11/test')
     solution = find_sync(data)
     assert solution == 195
@@ -81,5 +78,4 @@ def part2():
 
 
 if __name__ == '__main__':
-    part1()
-    part2()
+    run()

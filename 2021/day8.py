@@ -65,7 +65,7 @@ def decode(inputs, outputs):
     return int(decoded_output) 
 
 
-def part1():
+def run():
 
     data = load_data()
     n_unique = count_number_unique_segments(data=data)
@@ -74,9 +74,6 @@ def part1():
     data = load_data(filename='data/day8/input')
     n_unique = count_number_unique_segments(data=data)
     print('Part1 solution:', n_unique)
-
-
-def part2():
 
     data = load_data()
     solution = sum([decode(inputs, outputs) for inputs, outputs in data])
@@ -88,5 +85,4 @@ def part2():
 
 
 if __name__ == '__main__':
-    part1()
-    part2()
+    run()

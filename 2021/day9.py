@@ -71,7 +71,7 @@ def find_basins(heights):
     return n1 * n2 * n3
 
 
-def part1():
+def run():
     
     data = load_data(filename='data/day9/test')
     solution = get_risk_score(heights=data)
@@ -81,8 +81,6 @@ def part1():
     solution = get_risk_score(heights=data)
     print('Part1 solution:', solution)
 
-
-def part2():
     data = load_data(filename='data/day9/test')
     solution = find_basins(heights=data)
     assert solution == 1134
@@ -93,5 +91,4 @@ def part2():
 
 
 if __name__ == '__main__':
-    part1()
-    part2()
+    run()

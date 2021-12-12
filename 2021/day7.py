@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def load_data(filename='data/day7/test'):
     
     with open(filename) as infile:
@@ -23,11 +24,26 @@ def weighted_consumption(data):
     return int(min(consumptions))
 
 
+def consumption(data):
+    return int(np.abs(data - np.median(data)).sum())
+
+
 def run():
     
-    data = load_data('data/day7/input')
-    
-    print('Part1 solution:', int(np.abs(data - np.median(data)).sum()))
-    print('Part2 solution:', weighted_consumption(data))
+    data = load_data('data/day7/test')
+    solution = consumption(data) 
+    assert solution == 37
 
-run()
+    solution = weighted_consumption(data)
+    assert solution == 168
+
+    data = load_data('data/day7/input')
+    solution = consumption(data) 
+    print('Part1 solution:', solution)
+
+    solution = weighted_consumption(data)
+    print('Part2 solution:', solution)
+
+
+if __name__ == '__main__':
+    run()

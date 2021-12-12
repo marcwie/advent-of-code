@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def load_data(filename='data/day5/input'):
 
     with open(filename) as infile:
@@ -24,7 +25,6 @@ def filter_vertical_horizontal(lines):
 def create_ocean_map(lines):
     max_x = np.max([lines[:, 0].max(), lines[:, 2].max()])
     max_y = np.max([lines[:, 1].max(), lines[:, 3].max()])
-    
     return np.zeros((max_y+1, max_x+1), dtype=int)
 
 
@@ -78,24 +78,44 @@ def print_ocean_map(ocean_map):
         row[row == '0'] = '.'
         print(''.join(row))
 
-def part1():
 
-    lines = load_data(filename='data/day5/input')
+def solve_part1(lines):
+
     lines = filter_vertical_horizontal(lines=lines)
     ocean_map = create_ocean_map(lines=lines)
     ocean_map = fill_ocean_map(ocean_map=ocean_map, lines=lines)
     n_overlaps = (ocean_map > 1).sum()
+    
+    return n_overlaps
 
-    print('Solution Part1:', n_overlaps)
 
-    lines = load_data(filename='data/day5/input')
+def solve_part2(lines):
+
     ocean_map = create_ocean_map(lines=lines)
     ocean_map = fill_ocean_map(ocean_map=ocean_map, lines=lines)
     n_overlaps = (ocean_map > 1).sum()
+    
+    return n_overlaps
 
-    print('Solution Part2:', n_overlaps)
 
+def run():
+
+    lines = load_data(filename='data/day5/test')
+    solution = solve_part1(lines)
+    assert solution == 5
+
+    lines = load_data(filename='data/day5/input')
+    solution = solve_part1(lines)
+    print('Solution Part1:', solution)
+
+    lines = load_data(filename='data/day5/test')
+    solution = solve_part2(lines)
+    assert solution == 12
+
+    lines = load_data(filename='data/day5/input')
+    solution = solve_part2(lines)
+    print('Solution Part2:', solution)
 
 
 if __name__ == '__main__':
-    part1()
+    run()

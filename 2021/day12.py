@@ -36,7 +36,7 @@ def is_valid_path(path, small_caves, n_double_visits=1):
     return True
     
 
-def run(network, n_double_visits=1):
+def solve(network, n_double_visits=1):
 
     paths = [['start',],]
     is_running = True
@@ -67,45 +67,40 @@ def run(network, n_double_visits=1):
     return paths
 
 
-def part1():
+def run():
 
     network = load_data(filename='data/day12/test')
-    solution = len(run(network=network, n_double_visits=0))
+    solution = len(solve(network=network, n_double_visits=0))
     assert solution == 10
 
     network = load_data(filename='data/day12/test2')
-    solution = len(run(network=network, n_double_visits=0))
+    solution = len(solve(network=network, n_double_visits=0))
     assert solution == 19
 
     network = load_data(filename='data/day12/test3')
-    solution = len(run(network=network, n_double_visits=0))
+    solution = len(solve(network=network, n_double_visits=0))
     assert solution == 226
 
     network = load_data(filename='data/day12/input')
-    solution = len(run(network=network, n_double_visits=0))
+    solution = len(solve(network=network, n_double_visits=0))
     print('Part1 solution:', solution)
 
-
-def part2():
-
     network = load_data(filename='data/day12/test')
-    solution = len(run(network=network))
+    solution = len(solve(network=network))
     assert solution == 36
 
     network = load_data(filename='data/day12/test2')
-    solution = len(run(network=network))
+    solution = len(solve(network=network))
     assert solution == 103
 
     network = load_data(filename='data/day12/test3')
-    solution = len(run(network=network))
+    solution = len(solve(network=network))
     assert solution == 3509
         
     network = load_data(filename='data/day12/input')
-    solution = len(run(network=network))
+    solution = len(solve(network=network))
     print('Part2 solution:', solution)
 
  
 if __name__ == '__main__':
-    part1()
-    part2()
-
+    run()

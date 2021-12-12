@@ -1,8 +1,9 @@
 import numpy as np
 
-def load_data():
 
-    with open('data/day4/input') as infile:
+def load_data(filename):
+
+    with open(filename) as infile:
     
         random_numbers = infile.readline().split(',')
         random_numbers = np.array(random_numbers).astype(int)
@@ -34,12 +35,10 @@ def play_one_board(board, numbers):
         
         vertical = mask.all(axis=0).any()
         horizontal = mask.all(axis=1).any()
-        diagonal1 = np.all([mask[i, i] for i in range(5)])
-        diagonal2 = np.all([mask[i, 4-i] for i in range(5)])
 
-        if vertical or horizontal or diagonal1 or diagonal2:
+        if vertical or horizontal: 
             break
-    
+
     score = board[~mask].sum() * number
 
     return score, count
@@ -56,20 +55,20 @@ def play_all_boards(boards, numbers):
 
 def run():
 
-    numbers, boards = load_data()
+    numbers, boards = load_data(filename='data/day4/test')
     results = play_all_boards(boards=boards, numbers=numbers)    
-       
-    results_part1 = int(results[results[:, 1] == results[:, 1].min()][0, 0])
-    print('Solution Part1:', results_part1)
+    solution1 = int(results[results[:, 1] == results[:, 1].min()][0, 0])
+    solution2 = int(results[results[:, 1] == results[:, 1].max()][0, 0])
+    assert solution1 == 4512
+    assert solution2 == 1924
 
-    results_part2 = int(results[results[:, 1] == results[:, 1].max()][0, 0])
-    print('Solution Part2:', results_part2)
-
-
+    numbers, boards = load_data(filename='data/day4/input')
+    results = play_all_boards(boards=boards, numbers=numbers)    
+    solution1 = int(results[results[:, 1] == results[:, 1].min()][0, 0])
+    solution2 = int(results[results[:, 1] == results[:, 1].max()][0, 0])
+    print('Solution Part1:', solution1)
+    print('Solution Part2:', solution2)
 
 
 if __name__ == '__main__':
     run()
-
-
-

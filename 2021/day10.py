@@ -57,7 +57,7 @@ def find_middle_score(scores):
     return scores[(n_scores - 1) // 2]
 
 
-def part1():
+def run():
 
     data = load_data(filename='data/day10/test')
     solution = sum([validate(line) for line in data])
@@ -66,9 +66,6 @@ def part1():
     data = load_data(filename='data/day10/input')
     solution = sum([validate(line) for line in data])
     print('Part1 solution:', solution)
-
-
-def part2():
 
     data = load_data(filename='data/day10/test')
     solution = [autocomplete(line) for line in data]
@@ -82,5 +79,4 @@ def part2():
 
 
 if __name__ == '__main__':
-    part1()
-    part2()
+    run()

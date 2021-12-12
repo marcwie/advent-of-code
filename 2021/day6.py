@@ -20,21 +20,30 @@ def one_update(state):
 
     return state
 
+
+def solve(state, n_runs):
+
+    state = [(state == i).sum() for i in range(9)]
+    for _ in range(n_runs):
+        state = one_update(state=state)
+    
+    return sum(state)
+
 def run():
+    
+    state = load_data(filename='data/day6/test')
+    solution = solve(state=state, n_runs=80) 
+    assert solution == 5934
+
+    solution = solve(state=state, n_runs=256) 
+    assert solution == 26984457539
 
     state = load_data(filename='data/day6/input')
-    state = [(state == i).sum() for i in range(9)]
-    for _ in range(80):
-        state = one_update(state=state)
-    
-    print('Part1 Solution:', sum(state))
+    solution = solve(state=state, n_runs=80) 
+    print('Part1 solution:', solution)
 
-    state = load_data(filename='data/day6/input')
-    state = [(state == i).sum() for i in range(9)]
-    for _ in range(256):
-        state = one_update(state=state)
-    
-    print('Part2 Solution:', sum(state))
+    solution = solve(state=state, n_runs=256) 
+    print('Part2 solution:', solution)
 
 
 if __name__ == '__main__':

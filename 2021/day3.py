@@ -59,7 +59,7 @@ def solve_part2(data):
     return co2_scrubber_rating * oxygen_rating
 
 
-def part1():
+def run():
     
     data = np.loadtxt('data/day3/test', dtype=str)
     solution = solve_part1(data)
@@ -68,9 +68,6 @@ def part1():
     data = np.loadtxt('data/day3/input', dtype=str)
     solution = solve_part1(data)
     print('Part1 solution:', solution)
-
- 
-def part2():
 
     data = np.loadtxt('data/day3/test', dtype=str)
     solution = solve_part2(data)
@@ -82,5 +79,4 @@ def part2():
 
 
 if __name__ == '__main__':
-    part1()
-    part2()
+    run()
