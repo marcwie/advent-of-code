@@ -1,3 +1,8 @@
 # Advent of code 2021
 
-Requires `numpy`. Simply run `python run.py` to print all solutions at once.
+Written in pure `python`, i.e., without external dependencies other than
+standard libraries -- just for fun and practice. 
+
+Most solutions would have been shorter and more elegant if with `numpy`. 
+
+Simply run `python run.py` to print all solutions at once.
