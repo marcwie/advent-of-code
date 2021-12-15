@@ -1,10 +1,17 @@
-import numpy as np
+def load_data(filename):
+
+    with open(filename) as infile:
+        data = infile.read().splitlines()
+    data = [row.split(' ') for row in data]
+
+    return [[direction, int(value)] for direction, value in data]
+
 
 def solve_part1(data):
 
-    down = np.sum([int(value) for direction, value in data if direction == 'down'])
-    forward = np.sum([int(value) for direction, value in data if direction == 'forward'])
-    up = np.sum([int(value) for direction, value in data if direction == 'up'])
+    down = sum([val for direction, val in data if direction == 'down'])
+    forward = sum([val for direction, val in data if direction == 'forward'])
+    up = sum([val for direction, val in data if direction == 'up'])
     
     return (down - up) * forward
 
@@ -13,7 +20,6 @@ def solve_part2(data):
 
     depth, position, aim = 0, 0, 0
     for direction, value in data:
-        value = int(value)
         if direction == 'forward':
             position += value
             depth += aim * value
@@ -27,21 +33,23 @@ def solve_part2(data):
 
 def run():
 
-    data = np.loadtxt('data/day2/test', dtype=str)
+    data = load_data('data/day2/test')
     solution = solve_part1(data)
     assert solution == 150
 
-    data = np.loadtxt('data/day2/input', dtype=str)
+    data = load_data('data/day2/input')
     solution = solve_part1(data)
     print('Part1 solution:', solution) 
+    assert solution == 2120749
 
-    data = np.loadtxt('data/day2/test', dtype=str)
+    data = load_data('data/day2/test')
     solution = solve_part2(data)
     assert solution == 900
 
-    data = np.loadtxt('data/day2/input', dtype=str)
+    data = load_data('data/day2/input')
     solution = solve_part2(data)
     print('Part2 solution:', solution) 
+    assert solution == 2138382217
 
 
 if __name__ == '__main__':

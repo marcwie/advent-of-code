@@ -1,73 +1,78 @@
-import numpy as np
-
-
 def load_data(filename):
 
     with open(filename) as infile:
     
         random_numbers = infile.readline().split(',')
-        random_numbers = np.array(random_numbers).astype(int)
+        boards = infile.readlines()
+
+    random_numbers = [int(n) for n in random_numbers]
        
-        boards = np.array(infile.readlines())
-        n_boards = len(boards) // 6
+    n_boards = len(boards) // 6
+    board_list = []
+
+    for i in range(n_boards):
+        one_board = []     
+
+        for j in range(1, 6):
+            row = boards[6*i+j].replace('\n', '').split(' ')
+            row = [entry for entry in row if entry != '']
+            row = [int(n) for n in row]
+            one_board.append(row)
         
-        board_list = []
-        
-        for i in range(n_boards):
-            one_board = np.zeros((5,5))    
-            for j in range(1, 6):
-                row = boards[6*i+j].replace('\n', '').split(' ')
-                row = [entry for entry in row if entry != '']
-                row = np.array(row).astype(int)
-                one_board[j-1] = row
-            
-            board_list.append(one_board)
+        board_list.append(one_board)
     
     return random_numbers, board_list
 
 
 def play_one_board(board, numbers):
     
-    mask = np.zeros_like(board).astype(bool)
+    flat_board = [n for row in board for n in row]
+    mask = [False] * len(flat_board)
     
+    score = sum(flat_board)
     for count, number in enumerate(numbers):
-        mask = mask | (board == number)
+
+        if number in flat_board:
+            mask[flat_board.index(number)] = True
+            score -= number
         
-        vertical = mask.all(axis=0).any()
-        horizontal = mask.all(axis=1).any()
-
-        if vertical or horizontal: 
-            break
-
-    score = board[~mask].sum() * number
-
-    return score, count
+        for i in range(len(board)):
+            if False not in mask[i::5] or False not in mask[5*i:5*(i+1)]:
+                return score * number, count
     
 
-def play_all_boards(boards, numbers):
+def play_all_boards(boards, numbers, find='first'):
 
-    results = np.zeros((len(boards), 2))
+    results = []
     for i, board in enumerate(boards):
-        results[i] = play_one_board(board=board, numbers=numbers)
+        results.append(play_one_board(board=board, numbers=numbers))
     
-    return results
+    rounds = [rounds for _, rounds in results]
+    if find == 'first':
+        index = rounds.index(min(rounds))
+    else:
+        index = rounds.index(max(rounds))
+
+    return results[index][0]
 
 
 def run():
 
     numbers, boards = load_data(filename='data/day4/test')
-    results = play_all_boards(boards=boards, numbers=numbers)    
-    solution1 = int(results[results[:, 1] == results[:, 1].min()][0, 0])
-    solution2 = int(results[results[:, 1] == results[:, 1].max()][0, 0])
-    assert solution1 == 4512
-    assert solution2 == 1924
+    solution = play_all_boards(boards=boards, numbers=numbers, find='first')    
+    assert solution == 4512
+
+    solution = play_all_boards(boards=boards, numbers=numbers, find='last')    
+    assert solution == 1924
 
     numbers, boards = load_data(filename='data/day4/input')
-    results = play_all_boards(boards=boards, numbers=numbers)    
-    solution1 = int(results[results[:, 1] == results[:, 1].min()][0, 0])
-    solution2 = int(results[results[:, 1] == results[:, 1].max()][0, 0])
-    print('Solution Part1:', solution1)
-    print('Solution Part2:', solution2)
+    solution = play_all_boards(boards=boards, numbers=numbers, find='first')    
+    print('Solution Part1:', solution)
+    assert solution == 51034
+
+    solution = play_all_boards(boards=boards, numbers=numbers, find='last')    
+    print('Solution Part2:', solution)
+    assert solution == 5434
 
 
 if __name__ == '__main__':
