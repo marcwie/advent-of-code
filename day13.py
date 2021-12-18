@@ -1,15 +1,11 @@
-import numpy as np
-
-
 def load_data(filename):
 
     with open(filename) as infile:
-        
         data = infile.read().splitlines()
     
     coordinates = [row.split(',') for row in data if ',' in row ]
-    coordinates = np.array(coordinates).astype(int)
-    
+    coordinates = [[int(x), int(y)] for x, y in coordinates]
+
     folds = [row.rsplit(' ', 1)[-1].split('=') for row in data if '=' in row]
     folds = [(direction, int(value)) for direction, value in folds]
 
@@ -18,9 +14,11 @@ def load_data(filename):
 
 def initialize_page(coordinates):
     
-    n_cols, n_rows = coordinates.max(axis=0) + 1
-    page = np.zeros((n_rows, n_cols), dtype=bool)
-    page[coordinates[:, 1], coordinates[:, 0]] = True
+    n_col = max([x for x, y in coordinates]) + 1
+    n_row = max([y for x, y in coordinates]) + 1
+    page = [[False for x in range(n_col)] for y in range(n_row)]
+    for x, y in coordinates:
+        page[y][x] = True
     
     return page
 
@@ -28,15 +26,23 @@ def initialize_page(coordinates):
 def one_fold(page, fold_along, position):
 
     if fold_along == 'y':
-        return page[:position] + np.flipud(page[position+1:])
+        remain = page[:position]
+        fold = page[position+1:][::-1]
     else:
-        return page[:, :position] + np.fliplr(page[:, position+1:])
+        remain = [row[:position] for row in page]
+        fold = [row[position+1:][::-1] for row in page]
+    
+    idx = range(len(fold[0]))
+    idy = range(len(fold))
+    page = [[remain[y][x] or fold[y][x] for x in idx] for y in idy]
+
+    return page
 
 
 def fold(coordinates, folds, n_folds=None):
     
     page = initialize_page(coordinates=coordinates)
-    
+
     if not n_folds:
         n_folds = len(folds)
     
@@ -47,27 +53,20 @@ def fold(coordinates, folds, n_folds=None):
 
 
 def print_page(page):
-    
-    page_str = ''
-    page = page.astype(str)
-    page[page == 'True'] = '#'
-    page[page == 'False'] = ' '
-
-    for row in page:
-        page_str += ''.join(row) + '\n'
-    print(page_str)
+    page = [''.join(['#' if l else ' ' for l in row]) for row in page]
+    print('\n'.join(page))
 
 
 def run():
     
     coordinates, folds = load_data(filename='data/day13/test')
-    folded_page  = fold(coordinates=coordinates, folds=folds, n_folds=1) 
-    solution = folded_page.sum()
+    folded_page = fold(coordinates=coordinates, folds=folds, n_folds=1) 
+    solution = sum([d for row in folded_page for d in row])
     assert solution == 17 
 
     coordinates, folds = load_data(filename='data/day13/input')
     folded_page = fold(coordinates=coordinates, folds=folds, n_folds=1) 
-    solution = folded_page.sum()
+    solution = sum([d for row in folded_page for d in row])
     print('Part1 solution:', solution)
     assert solution == 818
 
