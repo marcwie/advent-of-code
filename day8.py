@@ -1,26 +1,18 @@
-from collections import Counter
-
-
 def load_data(filename='data/day8/test'):
 
     with open(filename) as infile:
-
         data = infile.read().splitlines()
 
     data = [row.split(' | ') for row in data] 
-    data = [[row[0].split(' '), row[1].split(' ')] for row in data]
-
-    return data
+    return [[row[0].split(' '), row[1].split(' ')] for row in data]
 
 
 def count_number_unique_segments(data):
 
     output = [entry[1] for entry in data]
     flat_output = [item for entry in output for item in entry] 
-    n_unique = sum([len(item) in [2, 3, 4, 7] for item in flat_output])
+    return sum([len(item) in [2, 3, 4, 7] for item in flat_output])
     
-    return n_unique
-
 
 def decode(inputs, outputs):
     """
@@ -39,8 +31,10 @@ def decode(inputs, outputs):
     two_digit_combo = two_digit_combo[0] 
 
     full_string = list(''.join(inputs))
-    c = Counter(full_string)
-    
+    c = {letter: 0 for letter in set(full_string)}
+    for letter in full_string:
+        c[letter] += 1
+
     mapping = {} 
     mapping['y'] = [key for key, value in c.items() if value == 9][0]
     mapping['u'] = [key for key, value in c.items() if value == 6][0]
@@ -74,6 +68,7 @@ def run():
     data = load_data(filename='data/day8/input')
     n_unique = count_number_unique_segments(data=data)
     print('Part1 solution:', n_unique)
+    assert n_unique == 349
 
     data = load_data()
     solution = sum([decode(inputs, outputs) for inputs, outputs in data])
@@ -82,6 +77,7 @@ def run():
     data = load_data(filename='data/day8/input')
     solution = sum([decode(inputs, outputs) for inputs, outputs in data])
     print('Part2 solution:', solution)
+    assert solution == 1070957
 
 
 if __name__ == '__main__':
