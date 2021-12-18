@@ -49,20 +49,20 @@ def life_support_rating(data):
 
 def run():
 
-    data = load_data('data/day3/test')
+    data = load_data('data/day03/test')
     solution = power_consumption(data)
     assert solution == 198 
     
-    data = load_data('data/day3/input')
+    data = load_data('data/day03/input')
     solution = power_consumption(data)
     print('Part1 solution:', solution)
     assert solution == 4118544
 
-    data = load_data('data/day3/test')
+    data = load_data('data/day03/test')
     solution = life_support_rating(data)
     assert solution == 230
     
-    data = load_data('data/day3/input')
+    data = load_data('data/day03/input')
     solution = life_support_rating(data)
     print('Part2 solution:', solution)
     assert solution == 3832770 

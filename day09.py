@@ -1,4 +1,4 @@
-def load_data(filename='data/day9/test'):
+def load_data(filename='data/day09/test'):
     
     with open(filename) as infile:
         data = infile.read().splitlines()
@@ -70,20 +70,20 @@ def find_basins(heights):
 
 def run():
     
-    data = load_data(filename='data/day9/test')
+    data = load_data(filename='data/day09/test')
     solution = get_risk_score(heights=data)
     assert solution == 15
 
-    data = load_data(filename='data/day9/input')
+    data = load_data(filename='data/day09/input')
     solution = get_risk_score(heights=data)
     print('Part1 solution:', solution)
     assert solution == 439
 
-    data = load_data(filename='data/day9/test')
+    data = load_data(filename='data/day09/test')
     solution = find_basins(heights=data)
     assert solution == 1134
 
-    data = load_data(filename='data/day9/input')
+    data = load_data(filename='data/day09/input')
     solution = find_basins(heights=data)
     print('Part2 solution:', solution) 
     assert solution == 900900

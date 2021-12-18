@@ -1,4 +1,4 @@
-def load_data(filename='data/day5/input'):
+def load_data(filename='data/day05/input'):
 
     with open(filename) as infile:
 
@@ -94,20 +94,20 @@ def solve_part2(lines):
 
 def run():
 
-    lines = load_data(filename='data/day5/test')
+    lines = load_data(filename='data/day05/test')
     solution = solve_part1(lines)
     assert solution == 5
 
-    lines = load_data(filename='data/day5/input')
+    lines = load_data(filename='data/day05/input')
     solution = solve_part1(lines)
     print('Solution Part1:', solution)
     assert solution == 7142
 
-    lines = load_data(filename='data/day5/test')
+    lines = load_data(filename='data/day05/test')
     solution = solve_part2(lines)
     assert solution == 12
 
-    lines = load_data(filename='data/day5/input')
+    lines = load_data(filename='data/day05/input')
     solution = solve_part2(lines)
     print('Solution Part2:', solution)
     assert solution == 20012

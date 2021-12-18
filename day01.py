@@ -18,23 +18,24 @@ def sliding_window(data, window_size):
 
 
 def run():
-    data = load_data('data/day1/test')
+    data = load_data('data/day01/test')
     solution = count_increments(data)
     assert solution == 7
 
-    data = load_data('data/day1/input')
+    data = load_data('data/day01/input')
     solution = count_increments(data)
     print('Part1 Solution:', solution)
     assert solution == 1184
 
-    data = load_data('data/day1/test')
+    data = load_data('data/day01/test')
     solution = count_increments(data, window_size=3)
     assert solution == 5
 
-    data = load_data('data/day1/input')
+    data = load_data('data/day01/input')
     solution = count_increments(data, window_size=3)
     print('Part2 Solution:', solution)
     assert solution == 1158
+
 
 if __name__ == '__main__':
     run()

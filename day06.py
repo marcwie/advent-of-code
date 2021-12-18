@@ -1,4 +1,4 @@
-def load_data(filename='data/day6/test'):
+def load_data(filename='data/day06/test'):
     
     with open(filename) as infile:
         data = infile.read().replace('\n', '').split(',')
@@ -28,14 +28,14 @@ def solve(state, n_runs):
 
 def run():
     
-    state = load_data(filename='data/day6/test')
+    state = load_data(filename='data/day06/test')
     solution = solve(state=state, n_runs=80) 
     assert solution == 5934
 
     solution = solve(state=state, n_runs=256) 
     assert solution == 26984457539
 
-    state = load_data(filename='data/day6/input')
+    state = load_data(filename='data/day06/input')
     solution = solve(state=state, n_runs=80) 
     print('Part1 solution:', solution)
     assert solution == 346063

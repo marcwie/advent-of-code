@@ -33,20 +33,20 @@ def solve_part2(data):
 
 def run():
 
-    data = load_data('data/day2/test')
+    data = load_data('data/day02/test')
     solution = solve_part1(data)
     assert solution == 150
 
-    data = load_data('data/day2/input')
+    data = load_data('data/day02/input')
     solution = solve_part1(data)
     print('Part1 solution:', solution) 
     assert solution == 2120749
 
-    data = load_data('data/day2/test')
+    data = load_data('data/day02/test')
     solution = solve_part2(data)
     assert solution == 900
 
-    data = load_data('data/day2/input')
+    data = load_data('data/day02/input')
     solution = solve_part2(data)
     print('Part2 solution:', solution) 
     assert solution == 2138382217

@@ -58,14 +58,14 @@ def play_all_boards(boards, numbers, find='first'):
 
 def run():
 
-    numbers, boards = load_data(filename='data/day4/test')
+    numbers, boards = load_data(filename='data/day04/test')
     solution = play_all_boards(boards=boards, numbers=numbers, find='first')    
     assert solution == 4512
 
     solution = play_all_boards(boards=boards, numbers=numbers, find='last')    
     assert solution == 1924
 
-    numbers, boards = load_data(filename='data/day4/input')
+    numbers, boards = load_data(filename='data/day04/input')
     solution = play_all_boards(boards=boards, numbers=numbers, find='first')    
     print('Solution Part1:', solution)
     assert solution == 51034

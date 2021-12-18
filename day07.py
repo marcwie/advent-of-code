@@ -1,4 +1,4 @@
-def load_data(filename='data/day7/test'):
+def load_data(filename='data/day07/test'):
 
     with open(filename) as infile:
         data = infile.readline().split(',')
@@ -34,14 +34,14 @@ def consumption(data):
 
 def run():
     
-    data = load_data('data/day7/test')
+    data = load_data('data/day07/test')
     solution = consumption(data) 
     assert solution == 37
 
     solution = weighted_consumption(data)
     assert solution == 168
 
-    data = load_data('data/day7/input')
+    data = load_data('data/day07/input')
     solution = consumption(data) 
     print('Part1 solution:', solution)
     assert solution == 354129

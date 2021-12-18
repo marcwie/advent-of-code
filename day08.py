@@ -1,4 +1,4 @@
-def load_data(filename='data/day8/test'):
+def load_data(filename='data/day08/test'):
 
     with open(filename) as infile:
         data = infile.read().splitlines()
@@ -65,7 +65,7 @@ def run():
     n_unique = count_number_unique_segments(data=data)
     assert n_unique == 26
 
-    data = load_data(filename='data/day8/input')
+    data = load_data(filename='data/day08/input')
     n_unique = count_number_unique_segments(data=data)
     print('Part1 solution:', n_unique)
     assert n_unique == 349
@@ -74,7 +74,7 @@ def run():
     solution = sum([decode(inputs, outputs) for inputs, outputs in data])
     assert solution == 61229
 
-    data = load_data(filename='data/day8/input')
+    data = load_data(filename='data/day08/input')
     solution = sum([decode(inputs, outputs) for inputs, outputs in data])
     print('Part2 solution:', solution)
     assert solution == 1070957
