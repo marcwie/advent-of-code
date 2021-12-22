@@ -14,46 +14,38 @@ def load_data(filename):
     return data
 
 
-def tessalate(cubes):
-
-    pos, size, n_cube = [], [], []
+def find_intersections(data):
+    
+    isects, size = [], []
 
     for dim in range(0, 6, 2):
-        x0 = set([row[dim] for row in cubes])
-        x1 = set([row[dim+1] + 1 for row in cubes])
+        x0 = set([row[dim] for row in data])
+        x1 = set([row[dim+1] + 1 for row in data])
         x0.update(x1)
         anchor = list(x0)
         anchor.sort()
-        pos.append(anchor)
 
         dist = [anchor[i] - anchor[i-1] for i in range(1, len(anchor))]
         size.append(dist)
+        isects.append(anchor[:-1])
 
-        n_cube.append(range(len(dist))) 
-    
-    idx = ((i, j, k) for i in n_cube[0] for j in n_cube[1] for k in n_cube[2])
-    cubes = ([pos[0][i], pos[1][j], pos[2][k], size[0][i] * size[1][j] * size[2][k]] for i, j, k in idx)
-    
-    return cubes
-    
+    return isects, size
+ 
 
 def reboot(data):
+    
+    isects, size = find_intersections(data)
+    states = {}    
 
-    tess = tessalate(data)
-    n_active = 0 
-    for cube in tess:
-        for x0, x1, y0, y1, z0, z1, sign in data[::-1]:
-            if cube[0] < x0 or cube[0] > x1:
-                continue
-            if cube[1] < y0 or cube[1] > y1:
-                continue
-            if cube[2] < z0 or cube[2] > z1:
-                continue
-            if sign:
-                n_active += cube[3]
-            break
-        
-    return n_active
+    for i, (x0, x1, y0, y1, z0, z1, sign) in enumerate(data):
+        xsects = [i for i, x in enumerate(isects[0]) if x >= x0 and x <= x1]
+        ysects = [i for i, y in enumerate(isects[1]) if y >= y0 and y <= y1]
+        zsects = [i for i, z in enumerate(isects[2]) if z >= z0 and z <= z1]
+        subcubes = ((i, j, k) for i in xsects for j in ysects for k in zsects)
+        for i, j, k in subcubes:
+            states[(i, j, k)] = sign * size[0][i] * size[1][j] * size[2][k]
+
+    return sum(states.values())
 
 
 def crop(data, vmin, vmax):
@@ -86,6 +78,16 @@ def run():
     solution = reboot(data)
     print('Part1 solution:', solution)
     assert solution == 533863
+
+    data = load_data('data/day22/test3')
+    solution = reboot(data)
+    assert solution == 2758514936282235
+    
+    data = load_data('data/day22/input')
+    print('Computing part 2. Takes a while...')
+    solution = reboot(data)
+    print('Part2 solution:', solution)
+    assert solution == 1261885414840992
 
 
 if __name__ == '__main__':
