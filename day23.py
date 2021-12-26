@@ -202,7 +202,7 @@ def compute(state, final_hallway):
     return min_risk 
  
 
-if __name__ == '__main__':
+def run():
     burrow, target = part1()
     solution = compute(burrow, target)
     print('Part1 solution: ', solution)
@@ -212,3 +212,7 @@ if __name__ == '__main__':
     solution = compute(burrow, target)
     print('Part2 solution: ', solution)
     assert solution == 47665
+
+
+if __name__ == '__main__':
+    run()
